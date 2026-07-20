@@ -16,12 +16,6 @@ variable "vpc_cidr_block" {
   default     = "172.25.0.0/16"
 }
 
-# variable "vpc_name" {
-#   description = "The name of the VPC."
-#   type        = string
-#   default     = "tgfdelivery-vpc"
-# }
-
 variable "public_subnet_config" {
   description = "Configuration for the public subnets."
   type = map(object({
@@ -88,8 +82,8 @@ variable "private_cluster_subnet_config" {
   }
 }
 
-variable "internet_gateway_availability_mode" {
-  description = "The availability mode for the Internet Gateway is regional."
+variable "nat_gw_availability_mode" {
+  description = "The availability mode for the NAT Gateway is regional."
   type        = bool
   default     = true
 }

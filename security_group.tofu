@@ -1,7 +1,7 @@
 resource "aws_security_group" "tgfdelivery_bastion" {
   description = "Allow SSH inbound traffic and all outbound traffic"
   name        = "tgfdelivery_bastion_sg"
-  vpc_id      = aws_vpc.tgfdelivery_vpc.id
+  vpc_id      = module.vpc.vpc_id
 
   dynamic "ingress" {
     for_each = local.bastion_ingress_rules
@@ -33,7 +33,7 @@ resource "aws_security_group" "tgfdelivery_bastion" {
 resource "aws_security_group" "tgfdelivery_private_vm" {
   description = "Allow SSH inbound traffic and all outbound traffic"
   name        = "tgfdelivery_private_vm_sg"
-  vpc_id      = aws_vpc.tgfdelivery_vpc.id
+  vpc_id      = module.vpc.vpc_id
 
   dynamic "ingress" {
     for_each = local.private_vm_ingress_rules

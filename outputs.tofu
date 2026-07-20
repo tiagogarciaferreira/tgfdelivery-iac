@@ -1,66 +1,66 @@
 output "vpc_id" {
   description = "The ID of the VPC."
-  value       = aws_vpc.tgfdelivery_vpc.id
+  value       = module.vpc.vpc_id
 }
 
 output "vpc_arn" {
   description = "The ARN of the VPC."
-  value       = aws_vpc.tgfdelivery_vpc.arn
+  value       = module.vpc.vpc_arn
 }
 
 output "public_subnet_ids" {
   description = "The IDs of the public subnet."
-  value       = [for subnet in aws_subnet.tgfdelivery_public : subnet.id]
+  value       = module.vpc.public_subnet_ids
 }
 
 output "public_subnet_arns" {
   description = "The ARNs of the public subnet."
-  value       = [for subnet in aws_subnet.tgfdelivery_public : subnet.arn]
+  value       = module.vpc.public_subnet_arns
 }
 
 output "private_management_subnet_ids" {
   description = "The IDs of the private management subnet."
-  value       = [for subnet in aws_subnet.tgfdelivery_private_management : subnet.id]
+  value       = module.vpc.private_management_subnet_ids
 }
 
 output "private_management_subnet_arns" {
   description = "The ARNs of the private management subnet."
-  value       = [for subnet in aws_subnet.tgfdelivery_private_management : subnet.arn]
+  value       = module.vpc.private_management_subnet_arns
 }
 
 output "private_cluster_subnet_ids" {
   description = "The IDs of the private cluster subnet."
-  value       = [for subnet in aws_subnet.tgfdelivery_private_cluster : subnet.id]
+  value       = module.vpc.private_cluster_subnet_ids
 }
 
 output "private_cluster_subnet_arns" {
   description = "The ARNs of the private cluster subnet."
-  value       = [for subnet in aws_subnet.tgfdelivery_private_cluster : subnet.arn]
+  value       = module.vpc.private_cluster_subnet_arns
 }
 
 output "internet_gateway_id" {
   description = "The ID of the Internet Gateway."
-  value       = aws_internet_gateway.tgfdelivery_igw.id
+  value       = module.vpc.internet_gateway_id
 }
 
 output "internet_gateway_arn" {
   description = "The ARN of the Internet Gateway."
-  value       = aws_internet_gateway.tgfdelivery_igw.arn
+  value       = module.vpc.internet_gateway_arn
 }
 
 output "nat_gateway_id" {
   description = "The ID of the NAT Gateway."
-  value       = aws_nat_gateway.tgfdelivery_nat.id
+  value       = module.vpc.nat_gateway_id
 }
 
 output "route_table_public_id" {
   description = "The ID of the public route table."
-  value       = aws_route_table.tgfdelivery_public.id
+  value       = module.vpc.route_table_public_id
 }
 
 output "route_table_private_id" {
   description = "The ID of the private route table."
-  value       = aws_route_table.tgfdelivery_private.id
+  value       = module.vpc.route_table_private_id
 }
 
 output "security_group_bastion_id" {

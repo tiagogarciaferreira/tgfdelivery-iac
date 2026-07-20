@@ -26,7 +26,7 @@ resource "aws_eip" "tgfdelivery_bastion_eip" {
 resource "aws_instance" "tgfdelivery_bastion" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
-  subnet_id                   = aws_subnet.tgfdelivery_public["public_a"].id
+  subnet_id                   = module.vpc.public_subnet_ids[0]
   vpc_security_group_ids      = [aws_security_group.tgfdelivery_bastion.id]
   key_name                    = var.key_pair_name
   associate_public_ip_address = true
@@ -41,7 +41,7 @@ resource "aws_instance" "tgfdelivery_bastion" {
 resource "aws_instance" "tgfdelivery_private_vm" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
-  subnet_id              = aws_subnet.tgfdelivery_private_management["private_management_a"].id
+  subnet_id              = module.vpc.private_management_subnet_ids[0]
   vpc_security_group_ids = [aws_security_group.tgfdelivery_private_vm.id]
   key_name               = var.key_pair_name
 
