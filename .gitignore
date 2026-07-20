@@ -2,6 +2,4 @@
 .terraform.lock.hcl
 *.tfstate
 *.tfstate.backup
-
-.pem
-!tgfdelivery-key.pem
+*.pem
