@@ -47,3 +47,8 @@ output "internet_gateway_arn" {
   description = "The ARN of the Internet Gateway."
   value       = aws_internet_gateway.tgfdelivery_igw.arn
 }
+
+output "nat_gateway_id" {
+  description = "The ID of the NAT Gateway."
+  value       = aws_nat_gateway.tgfdelivery_nat.id
+}

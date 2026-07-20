@@ -87,3 +87,9 @@ variable "private_cluster_subnet_config" {
     }
   }
 }
+
+variable "internet_gateway_availability_mode" {
+  description = "The availability mode for the Internet Gateway is regional."
+  type        = bool
+  default     = true
+}

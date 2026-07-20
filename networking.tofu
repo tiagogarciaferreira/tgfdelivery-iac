@@ -41,9 +41,17 @@ resource "aws_subnet" "private_cluster" {
 
 resource "aws_internet_gateway" "tgfdelivery_igw" {
   vpc_id = aws_vpc.tgfdelivery_vpc.id
-
   tags = {
     Name        = "${local.context_name}-igw"
+    Environment = var.environment
+  }
+}
+
+resource "aws_nat_gateway" "tgfdelivery_nat" {
+  vpc_id            = aws_vpc.tgfdelivery_vpc.id
+  availability_mode = local.availability_mode
+  tags = {
+    Name        = "${local.context_name}-ngw"
     Environment = var.environment
   }
 }
