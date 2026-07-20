@@ -89,7 +89,6 @@ resource "aws_route_table" "tgfdelivery_private" {
   route {
     cidr_block = local.internet_cidr_block
     gateway_id = aws_nat_gateway.tgfdelivery_nat.id
-    #nat_gateway_id = aws_nat_gateway.tgfdelivery_nat.id
   }
 
   tags = {
