@@ -51,15 +51,15 @@ variable "private_management_subnet_config" {
     availability_zone = string
   }))
   default = {
-    "public_a" = {
+    "private_management_a" = {
       cidr_block        = "172.25.4.0/24"
       availability_zone = "a"
     },
-    "public_b" = {
+    "private_management_b" = {
       cidr_block        = "172.25.5.0/24"
       availability_zone = "b"
     },
-    "public_c" = {
+    "private_management_c" = {
       cidr_block        = "172.25.6.0/24"
       availability_zone = "c"
     }
@@ -73,15 +73,15 @@ variable "private_cluster_subnet_config" {
     availability_zone = string
   }))
   default = {
-    "public_a" = {
+    "private_cluster_a" = {
       cidr_block        = "172.25.7.0/24"
       availability_zone = "a"
     },
-    "public_b" = {
+    "private_cluster_b" = {
       cidr_block        = "172.25.8.0/24"
       availability_zone = "b"
     },
-    "public_c" = {
+    "private_cluster_c" = {
       cidr_block        = "172.25.9.0/24"
       availability_zone = "c"
     }
@@ -92,4 +92,22 @@ variable "internet_gateway_availability_mode" {
   description = "The availability mode for the Internet Gateway is regional."
   type        = bool
   default     = true
+}
+
+variable "instance_type" {
+  description = "The instance type for the EC2 instances."
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "key_pair_name" {
+  description = "The name of the key pair to use for the EC2 instances."
+  type        = string
+  default     = "tgfdelivery-key"
+}
+
+variable "ami_id" {
+  description = "The AMI ID for the EC2 instances."
+  type        = string
+  default     = "ami-0b6d9d3d33ba97d99"
 }

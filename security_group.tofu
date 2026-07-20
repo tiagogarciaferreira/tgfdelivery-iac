@@ -20,7 +20,7 @@ resource "aws_security_group" "tgfdelivery_bastion" {
   }
 
   tags = merge(local.common_tags, {
-    Name        = "${local.context_name}-bastion"
+    Name = "${local.context_name}-bastion"
   })
 }
 
@@ -46,6 +46,6 @@ resource "aws_security_group" "tgfdelivery_private_vm" {
   }
 
   tags = merge(local.common_tags, {
-    Name        = "${local.context_name}-private-vm"
+    Name = "${local.context_name}-private-vm"
   })
 }
