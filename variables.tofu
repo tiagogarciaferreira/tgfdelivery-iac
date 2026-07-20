@@ -25,23 +25,19 @@ variable "vpc_name" {
 variable "public_subnet_config" {
   description = "Configuration for the public subnets."
   type = map(object({
-    name              = string
     cidr_block        = string
     availability_zone = string
   }))
   default = {
     "public_a" = {
-      name              = "tgfdelivery-public-a"
       cidr_block        = "172.25.1.0/24"
       availability_zone = "a"
     },
     "public_b" = {
-      name              = "tgfdelivery-public-b"
       cidr_block        = "172.25.2.0/24"
       availability_zone = "b"
     },
     "public_c" = {
-      name              = "tgfdelivery-public-c"
       cidr_block        = "172.25.3.0/24"
       availability_zone = "c"
     }
