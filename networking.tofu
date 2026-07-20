@@ -1,10 +1,9 @@
 resource "aws_vpc" "tgfdelivery_vpc" {
   cidr_block = var.vpc_cidr_block
-  tags = {
+  
+  tags = merge(local.common_tags, {
     Name        = "${local.context_name}-vpc"
-    Environment = var.environment
-    ManagedBy   = local.managed_by
-  }
+  })
 }
 
 resource "aws_subnet" "tgfdelivery_public" {
@@ -12,11 +11,10 @@ resource "aws_subnet" "tgfdelivery_public" {
   vpc_id            = aws_vpc.tgfdelivery_vpc.id
   cidr_block        = each.value.cidr_block
   availability_zone = "${var.aws_region}${each.value.availability_zone}"
-  tags = {
+  
+  tags = merge(local.common_tags, {
     Name        = "${local.context_name}-public-${each.value.availability_zone}"
-    Environment = var.environment
-    ManagedBy   = local.managed_by
-  }
+  })
 }
 
 resource "aws_subnet" "tgfdelivery_private_management" {
@@ -24,11 +22,10 @@ resource "aws_subnet" "tgfdelivery_private_management" {
   vpc_id            = aws_vpc.tgfdelivery_vpc.id
   cidr_block        = each.value.cidr_block
   availability_zone = "${var.aws_region}${each.value.availability_zone}"
-  tags = {
+  
+  tags = merge(local.common_tags, {
     Name        = "${local.context_name}-private-management-${each.value.availability_zone}"
-    Environment = var.environment
-    ManagedBy   = local.managed_by
-  }
+  })
 }
 
 resource "aws_subnet" "tgfdelivery_private_cluster" {
@@ -36,20 +33,18 @@ resource "aws_subnet" "tgfdelivery_private_cluster" {
   vpc_id            = aws_vpc.tgfdelivery_vpc.id
   cidr_block        = each.value.cidr_block
   availability_zone = "${var.aws_region}${each.value.availability_zone}"
-  tags = {
+  
+  tags = merge(local.common_tags, {
     Name        = "${local.context_name}-private-cluster-${each.value.availability_zone}"
-    Environment = var.environment
-    ManagedBy   = local.managed_by
-  }
+  })
 }
 
 resource "aws_internet_gateway" "tgfdelivery_igw" {
   vpc_id = aws_vpc.tgfdelivery_vpc.id
-  tags = {
+  
+  tags = merge(local.common_tags, {
     Name        = "${local.context_name}-igw"
-    Environment = var.environment
-    ManagedBy   = local.managed_by
-  }
+  })
 }
 
 resource "aws_route_table" "tgfdelivery_public" {
@@ -60,11 +55,9 @@ resource "aws_route_table" "tgfdelivery_public" {
     gateway_id = aws_internet_gateway.tgfdelivery_igw.id
   }
 
-  tags = {
+  tags = merge(local.common_tags, {
     Name        = "${local.context_name}-public-rt"
-    Environment = var.environment
-    ManagedBy   = local.managed_by
-  }
+  })
 }
 
 resource "aws_route_table_association" "tgfdelivery_public_association" {
@@ -76,11 +69,10 @@ resource "aws_route_table_association" "tgfdelivery_public_association" {
 resource "aws_nat_gateway" "tgfdelivery_nat" {
   vpc_id            = aws_vpc.tgfdelivery_vpc.id
   availability_mode = local.availability_mode
-  tags = {
+  
+  tags = merge(local.common_tags, {
     Name        = "${local.context_name}-ngw"
-    Environment = var.environment
-    ManagedBy   = local.managed_by
-  }
+  })
 }
 
 resource "aws_route_table" "tgfdelivery_private" {
@@ -91,11 +83,9 @@ resource "aws_route_table" "tgfdelivery_private" {
     gateway_id = aws_nat_gateway.tgfdelivery_nat.id
   }
 
-  tags = {
+  tags = merge(local.common_tags, {
     Name        = "${local.context_name}-private-rt"
-    Environment = var.environment
-    ManagedBy   = local.managed_by
-  }
+  })
 }
 
 resource "aws_route_table_association" "tgfdelivery_private_management_association" {

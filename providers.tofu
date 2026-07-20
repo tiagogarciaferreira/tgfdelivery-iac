@@ -4,9 +4,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.54.0"
     }
+    http = {
+      source = "hashicorp/http"
+      version = "3.6.0"
+    }
   }
-
-  // adicionar depois o backend com s3
 }
 
 provider "aws" {
