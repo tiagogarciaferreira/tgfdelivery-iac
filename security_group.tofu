@@ -3,20 +3,26 @@ resource "aws_security_group" "tgfdelivery_bastion" {
   name        = "tgfdelivery_bastion_sg"
   vpc_id      = aws_vpc.tgfdelivery_vpc.id
 
-  ingress {
-    description = "SSH from My IP"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [local.my_public_ip]
+  dynamic "ingress" {
+    for_each = local.bastion_ingress_rules
+    content {
+      description = ingress.value.description
+      from_port   = ingress.value.from_port
+      to_port     = ingress.value.to_port
+      protocol    = ingress.value.protocol
+      cidr_blocks = ingress.value.cidr_blocks
+    }
   }
 
-  egress {
-    description = "Outbound traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [local.internet_cidr_block]
+  dynamic "egress" {
+    for_each = local.bastion_egress_rules
+    content {
+      description = egress.value.description
+      from_port   = egress.value.from_port
+      to_port     = egress.value.to_port
+      protocol    = egress.value.protocol
+      cidr_blocks = egress.value.cidr_blocks
+    }
   }
 
   tags = merge(local.common_tags, {
@@ -29,20 +35,26 @@ resource "aws_security_group" "tgfdelivery_private_vm" {
   name        = "tgfdelivery_private_vm_sg"
   vpc_id      = aws_vpc.tgfdelivery_vpc.id
 
-  ingress {
-    description = "SSH from VPC"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [aws_vpc.tgfdelivery_vpc.cidr_block]
+  dynamic "ingress" {
+    for_each = local.private_vm_ingress_rules
+    content {
+      description = ingress.value.description
+      from_port   = ingress.value.from_port
+      to_port     = ingress.value.to_port
+      protocol    = ingress.value.protocol
+      cidr_blocks = ingress.value.cidr_blocks
+    }
   }
 
-  egress {
-    description = "Outbound traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [local.internet_cidr_block]
+  dynamic "egress" {
+    for_each = local.private_vm_egress_rules
+    content {
+      description = egress.value.description
+      from_port   = egress.value.from_port
+      to_port     = egress.value.to_port
+      protocol    = egress.value.protocol
+      cidr_blocks = egress.value.cidr_blocks
+    }
   }
 
   tags = merge(local.common_tags, {

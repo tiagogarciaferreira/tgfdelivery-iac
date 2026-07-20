@@ -111,3 +111,52 @@ variable "ami_id" {
   type        = string
   default     = "ami-0b6d9d3d33ba97d99"
 }
+
+variable "bastion_ingress_rules" {
+  description = "A list of ingress rules for the bastion security group."
+  type = list(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+  default = []
+}
+
+variable "bastion_egress_rules" {
+  description = "A list of egress rules for the bastion security group."
+  type = list(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+  default = []
+}
+
+
+variable "private_vm_ingress_rules" {
+  description = "A list of ingress rules for the private VM security group."
+  type = list(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+  default = []
+}
+
+variable "private_vm_egress_rules" {
+  description = "A list of egress rules for the private VM security group."
+  type = list(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+  default = []
+}
