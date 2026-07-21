@@ -3,3 +3,4 @@
 *.tfstate
 *.tfstate.backup
 *.pem
+.terraform.tfstate.lock.info

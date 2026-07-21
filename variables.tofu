@@ -84,51 +84,31 @@ variable "ami_id" {
   default     = "ami-0b6d9d3d33ba97d99"
 }
 
-variable "bastion_ingress_rules" {
-  description = "A list of ingress rules for the bastion security group."
-  type = list(object({
-    description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = []
+variable "enabled_eip" {
+  description = "Whether to enable an Elastic IP for the EC2 instance."
+  type        = bool
+  default     = true
 }
 
-variable "bastion_egress_rules" {
-  description = "A list of egress rules for the bastion security group."
-  type = list(object({
+variable "security_group_config" {
+  description = "Configuration for the security groups."
+  type = object({
+    name        = string
     description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = []
-}
-
-
-variable "private_vm_ingress_rules" {
-  description = "A list of ingress rules for the private VM security group."
-  type = list(object({
-    description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = []
-}
-
-variable "private_vm_egress_rules" {
-  description = "A list of egress rules for the private VM security group."
-  type = list(object({
-    description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = []
+    ingress_rules = list(object({
+      description = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    }))
+    egress_rules = list(object({
+      description = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    }))
+  })
+  default = null
 }

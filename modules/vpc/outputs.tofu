@@ -10,7 +10,7 @@ output "vpc_arn" {
 
 output "public_subnet_ids" {
   description = "The IDs of the public subnet."
-  value       = {
+  value = {
     for group_name in keys(var.public_subnets_config) : group_name => [
       for key, subnet in aws_subnet.public : subnet.id
       if local.merged_public_subnets[key].group == group_name
@@ -20,7 +20,7 @@ output "public_subnet_ids" {
 
 output "public_subnet_arns" {
   description = "The ARNs of the public subnet."
-  value       = {
+  value = {
     for group_name in keys(var.public_subnets_config) : group_name => [
       for key, subnet in aws_subnet.public : subnet.arn
       if local.merged_public_subnets[key].group == group_name
@@ -30,17 +30,17 @@ output "public_subnet_arns" {
 
 output "private_subnet_ids" {
   description = "The IDs of the private subnet."
-  value       = {
+  value = {
     for group_name in keys(var.private_subnets_config) : group_name => [
       for key, subnet in aws_subnet.private : subnet.id
       if local.merged_private_subnets[key].group == group_name
     ]
   }
-} 
+}
 
 output "private_subnet_arns" {
   description = "The ARNs of the private subnet."
-  value       = {
+  value = {
     for group_name in keys(var.private_subnets_config) : group_name => [
       for key, subnet in aws_subnet.private : subnet.arn
       if local.merged_private_subnets[key].group == group_name

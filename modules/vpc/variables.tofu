@@ -18,7 +18,7 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "public_subnets_config"{
+variable "public_subnets_config" {
   description = "Configuration for the public subnets."
   type = map(
     map(object({
