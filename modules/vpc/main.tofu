@@ -7,35 +7,24 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public" {
-  for_each          = var.public_subnet_config
+  for_each          = local.merged_public_subnets
   vpc_id            = aws_vpc.main.id
   cidr_block        = each.value.cidr_block
   availability_zone = "${var.aws_region}${each.value.availability_zone}"
 
   tags = merge(var.common_tags, {
-    Name = "${var.context_name}-public-${each.value.availability_zone}"
+    Name = "${var.context_name}-public-${each.value.group}-${each.value.availability_zone}"
   })
 }
 
-resource "aws_subnet" "private_management" {
-  for_each          = var.private_management_subnet_config
+resource "aws_subnet" "private" {
+  for_each          = local.merged_private_subnets
   vpc_id            = aws_vpc.main.id
   cidr_block        = each.value.cidr_block
   availability_zone = "${var.aws_region}${each.value.availability_zone}"
 
   tags = merge(var.common_tags, {
-    Name = "${var.context_name}-private-management-${each.value.availability_zone}"
-  })
-}
-
-resource "aws_subnet" "private_cluster" {
-  for_each          = var.private_cluster_subnet_config
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = each.value.cidr_block
-  availability_zone = "${var.aws_region}${each.value.availability_zone}"
-
-  tags = merge(var.common_tags, {
-    Name = "${var.context_name}-private-cluster-${each.value.availability_zone}"
+    Name = "${var.context_name}-private-${each.value.group}-${each.value.availability_zone}"
   })
 }
 
@@ -60,7 +49,7 @@ resource "aws_route_table" "public" {
   })
 }
 
-resource "aws_route_table_association" "public_association" {
+resource "aws_route_table_association" "public" {
   for_each       = aws_subnet.public
   subnet_id      = each.value.id
   route_table_id = aws_route_table.public.id
@@ -88,14 +77,20 @@ resource "aws_route_table" "private" {
   })
 }
 
-resource "aws_route_table_association" "private_management_association" {
-  for_each       = aws_subnet.private_management
+resource "aws_route_table_association" "private" {
+  for_each       = aws_subnet.private
   subnet_id      = each.value.id
   route_table_id = aws_route_table.private.id
 }
 
-resource "aws_route_table_association" "private_cluster_association" {
-  for_each       = aws_subnet.private_cluster
-  subnet_id      = each.value.id
-  route_table_id = aws_route_table.private.id
-}
+# resource "aws_route_table_association" "private_management_association" {
+#   for_each       = aws_subnet.private_management
+#   subnet_id      = each.value.id
+#   route_table_id = aws_route_table.private.id
+# }
+
+# resource "aws_route_table_association" "private_cluster_association" {
+#   for_each       = aws_subnet.private_cluster
+#   subnet_id      = each.value.id
+#   route_table_id = aws_route_table.private.id
+# }

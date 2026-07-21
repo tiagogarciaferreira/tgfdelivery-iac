@@ -16,46 +16,68 @@ variable "vpc_cidr_block" {
   default     = "172.25.0.0/16"
 }
 
-variable "public_subnets_config" {
+variable "public_subnet_config" {
   description = "Configuration for the public subnets."
-  type = map(
-    map(object({
-      cidr_block        = string
-      availability_zone = string
-    }))
-  )
+  type = map(object({
+    cidr_block        = string
+    availability_zone = string
+  }))
   default = {
-    "public" = {
-      "public_a" = { cidr_block = "172.25.1.0/24", availability_zone = "a" },
-      "public_b" = { cidr_block = "172.25.2.0/24", availability_zone = "b" },
-      "public_c" = { cidr_block = "172.25.3.0/24", availability_zone = "c" },
+    "public_a" = {
+      cidr_block        = "172.25.1.0/24"
+      availability_zone = "a"
+    },
+    "public_b" = {
+      cidr_block        = "172.25.2.0/24"
+      availability_zone = "b"
+    },
+    "public_c" = {
+      cidr_block        = "172.25.3.0/24"
+      availability_zone = "c"
     }
   }
 }
 
-variable "private_subnets_config" {
-  description = "Configuration for the private subnets."
-  type = map(
-    map(object({
-      cidr_block        = string
-      availability_zone = string
-    }))
-  )
+variable "private_management_subnet_config" {
+  description = "Configuration for the private management subnets."
+  type = map(object({
+    cidr_block        = string
+    availability_zone = string
+  }))
   default = {
-    "management" = {
-      "private_management_a" = { cidr_block = "172.25.4.0/24", availability_zone = "a" },
-      "private_management_b" = { cidr_block = "172.25.5.0/24", availability_zone = "b" },
-      "private_management_c" = { cidr_block = "172.25.6.0/24", availability_zone = "c" },
+    "private_management_a" = {
+      cidr_block        = "172.25.4.0/24"
+      availability_zone = "a"
     },
-    "cluster" = {
-      "private_cluster_a" = { cidr_block = "172.25.7.0/24", availability_zone = "a" },
-      "private_cluster_b" = { cidr_block = "172.25.8.0/24", availability_zone = "b" },
-      "private_cluster_c" = { cidr_block = "172.25.9.0/24", availability_zone = "c" },
+    "private_management_b" = {
+      cidr_block        = "172.25.5.0/24"
+      availability_zone = "b"
+    },
+    "private_management_c" = {
+      cidr_block        = "172.25.6.0/24"
+      availability_zone = "c"
     }
-    "database" = {
-      "private_database_a" = { cidr_block = "172.25.10.0/24", availability_zone = "a" },
-      "private_database_b" = { cidr_block = "172.25.11.0/24", availability_zone = "b" },
-      "private_database_c" = { cidr_block = "172.25.12.0/24", availability_zone = "c" },
+  }
+}
+
+variable "private_cluster_subnet_config" {
+  description = "Configuration for the private cluster subnets."
+  type = map(object({
+    cidr_block        = string
+    availability_zone = string
+  }))
+  default = {
+    "private_cluster_a" = {
+      cidr_block        = "172.25.7.0/24"
+      availability_zone = "a"
+    },
+    "private_cluster_b" = {
+      cidr_block        = "172.25.8.0/24"
+      availability_zone = "b"
+    },
+    "private_cluster_c" = {
+      cidr_block        = "172.25.9.0/24"
+      availability_zone = "c"
     }
   }
 }

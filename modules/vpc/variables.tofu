@@ -18,28 +18,24 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "public_subnet_config" {
+variable "public_subnets_config"{
   description = "Configuration for the public subnets."
-  type = map(object({
-    cidr_block        = string
-    availability_zone = string
-  }))
+  type = map(
+    map(object({
+      cidr_block        = string
+      availability_zone = string
+    }))
+  )
 }
 
-variable "private_management_subnet_config" {
-  description = "Configuration for the private management subnets."
-  type = map(object({
-    cidr_block        = string
-    availability_zone = string
-  }))
-}
-
-variable "private_cluster_subnet_config" {
-  description = "Configuration for the private cluster subnets."
-  type = map(object({
-    cidr_block        = string
-    availability_zone = string
-  }))
+variable "private_subnets_config" {
+  description = "Configuration for the private subnets."
+  type = map(
+    map(object({
+      cidr_block        = string
+      availability_zone = string
+    }))
+  )
 }
 
 variable "nat_gateway_availability_mode" {
