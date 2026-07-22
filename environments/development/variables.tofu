@@ -10,6 +10,12 @@ variable "environment" {
   default     = "development"
 }
 
+variable "bucket_name" {
+  description = "The name of the S3 state bucket."
+  type        = string
+  default     = "tgfdelivery-tfstate"
+}
+
 variable "vpc_cidr_block" {
   description = "The CIDR block for the VPC."
   type        = string
