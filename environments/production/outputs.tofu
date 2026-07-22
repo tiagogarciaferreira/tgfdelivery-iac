@@ -87,3 +87,38 @@ output "keypair_arn" {
   description = "The ARN of the key pair."
   value       = module.bastion.keypair_arn
 }
+
+output "arn" {
+  description = "ARN of the RDS instance."
+  value       = module.database.arn
+}
+
+output "subnet_group_id" {
+  description = "ID of the DB subnet group."
+  value       = module.database.subnet_group_id
+}
+
+output "engine" {
+  description = "Database engine running on the instance."
+  value       = module.database.engine
+}
+
+output "parameter_group_id" {
+  description = "ID of the associated DB parameter group."
+  value       = module.database.parameter_group_id
+}
+
+output "security_group_id" {
+  description = "ID of the associated security group."
+  value       = module.database.security_group_id
+}
+
+output "security_group_arn" {
+  description = "ARN of the associated security group."
+  value       = module.database.security_group_arn
+}
+
+output "password_secret_arn" {
+  description = "ARN of the Secrets Manager secret containing the master user password."
+  value       = module.database.password_secret_arn
+}

@@ -118,3 +118,102 @@ variable "security_group_config" {
   })
   default = null
 }
+
+variable "db_subnet_group_name" {
+  description = "Name of the DB subnet group."
+  type        = string
+  default     = "tgfdelivery-development-db-subnet-group"
+}
+
+variable "db_parameter_group_name" {
+  description = "Name of the DB parameter group."
+  type        = string
+  default     = "tgfdelivery-development-db-parameter-group"
+}
+
+variable "db_engine" {
+  description = "Database engine to use (e.g., postgres, mysql)."
+  type        = string
+  default     = "postgres"
+}
+
+variable "db_engine_version" {
+  description = "Version of the database engine."
+  type        = string
+  default     = "18"
+}
+
+variable "db_instance_class" {
+  description = "Instance type for the RDS instance (e.g., db.t3.micro, db.m5.large)."
+  type        = string
+  default     = "db.t4g.micro"
+}
+
+variable "db_port" {
+  description = "Port on which the database accepts connections."
+  type        = number
+  default     = 5432
+}
+
+variable "db_name" {
+  description = "Name of the initial database to create."
+  type        = string
+  default     = "delivery"
+}
+
+variable "db_username" {
+  description = "Username for the database."
+  type        = string
+  default     = "postgres"
+  sensitive   = true
+}
+
+variable "db_allocated_storage" {
+  description = "Allocated storage size in gigabytes (GB)."
+  type        = number
+  default     = 10
+}
+
+variable "db_skip_final_snapshot" {
+  description = "Skip the creation of a final DB snapshot when destroying the instance."
+  type        = bool
+  default     = true
+}
+
+variable "db_security_group_config" {
+  description = "Configuration for the security groups."
+  type = object({
+    name        = string
+    description = string
+    ingress_rules = list(object({
+      description = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    }))
+    egress_rules = list(object({
+      description = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    }))
+  })
+  default = null
+}
+
+variable "db_parameter_group_options" {
+  description = "Map of database parameters to configure in the parameter group."
+  type        = map(string)
+  default = {
+    "max_connections"          = "300",
+    "shared_preload_libraries" = "pg_stat_statements,pgaudit"
+  }
+}
+
+variable "db_apply_immediately" {
+  description = "Apply database modifications immediately instead of waiting for the next maintenance window."
+  type        = bool
+  default     = false
+}

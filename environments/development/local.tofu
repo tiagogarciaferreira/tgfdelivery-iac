@@ -42,4 +42,34 @@ locals {
       ]
     )
   }
+
+  db_security_group_config = {
+    name        = "${local.context_name}-${var.environment}-database-sg"
+    description = "Configuring security groups for DB instances."
+
+    ingress_rules = coalesce(
+      try(length(var.db_security_group_config.ingress_rules) == 0 ? null : var.db_security_group_config.ingress_rules, null),
+      [
+        {
+          description = "Allow SSH from My IP"
+          from_port   = var.db_port
+          to_port     = var.db_port
+          protocol    = "tcp"
+          cidr_blocks = [local.my_public_ip]
+        }
+      ]
+    )
+    egress_rules = coalesce(
+      try(length(var.db_security_group_config.egress_rules) == 0 ? null : var.db_security_group_config.egress_rules, null),
+      [
+        {
+          description = "Allow all outbound traffic"
+          from_port   = 0
+          to_port     = 0
+          protocol    = "-1"
+          cidr_blocks = [local.internet_cidr_block]
+        }
+      ]
+    )
+  }
 }
