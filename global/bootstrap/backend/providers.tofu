@@ -7,6 +7,19 @@ terraform {
       version = "~> 6.54.0"
     }
   }
+
+  backend "s3" {
+    bucket       = var.bucket_name
+    key          = "${local.context_name}/${local.environment}/remote.tfstate"
+    region       = var.aws_region
+    use_lockfile = true
+
+    lock_tags = {
+      "object:type" : "lock"
+    }
+
+    state_tags = local.common_tags
+  }
 }
 
 provider "aws" {
