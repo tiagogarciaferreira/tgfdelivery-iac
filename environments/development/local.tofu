@@ -4,14 +4,17 @@ locals {
   managed_by                    = "OpenTofu"
   internet_cidr_block           = "0.0.0.0/0"
   my_public_ip                  = "${trimspace(data.http.my_public_ip.response_body)}/32"
+  short_environment             = "dev"
 
   common_tags = {
-    Environment = var.environment
-    ManagedBy   = local.managed_by
+    Environment       = var.environment
+    Short-Environment = local.short_environment
+    ManagedBy         = local.managed_by
+    Project           = local.context_name
   }
 
   bastion_security_group_config = {
-    name        = "${local.context_name}-bastion-sg"
+    name        = "${local.context_name}-${var.environment}-bastion-sg"
     description = "Configuring security groups for EC2 instances."
 
     ingress_rules = coalesce(

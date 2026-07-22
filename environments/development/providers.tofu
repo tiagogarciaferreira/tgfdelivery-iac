@@ -17,6 +17,19 @@ terraform {
       version = "2.9.0"
     }
   }
+
+  # backend "s3" {
+  #   bucket = "tgfdelivery-tfstate"
+  #   key    = "tgfdelivery/${var.environment}/remote.tfstate"
+  #   region = var.aws_region
+
+  #   use_lockfile = true
+  #   lock_tags = {
+  #     "object:type" : "lock"
+  #   }
+
+  #   state_tags = local.common_tags
+  # }
 }
 
 provider "aws" {
