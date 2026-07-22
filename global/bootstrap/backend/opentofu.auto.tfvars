@@ -1,3 +1,3 @@
 aws_region    = "us-east-1"
-force_destroy = true
+force_destroy = false
 bucket_name   = "tgfdelivery-tfstate"

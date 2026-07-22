@@ -41,5 +41,10 @@ resource "aws_instance" "main" {
     Name = "${var.instance_name}"
   })
 
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes  = [ami]
+  }
+
   depends_on = [aws_key_pair.main]
 }
