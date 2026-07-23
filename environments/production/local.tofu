@@ -18,7 +18,7 @@ locals {
     description = "Configuring security groups for EC2 instances."
 
     ingress_rules = coalesce(
-      try(length(var.security_group_config.ingress_rules) == 0 ? null : var.security_group_config.ingress_rules, null),
+      try(length(var.bastion_security_group_config.ingress_rules) == 0 ? null : var.bastion_security_group_config.ingress_rules, null),
       [
         {
           description = "Allow SSH from My IP"
@@ -30,7 +30,7 @@ locals {
       ]
     )
     egress_rules = coalesce(
-      try(length(var.security_group_config.egress_rules) == 0 ? null : var.security_group_config.egress_rules, null),
+      try(length(var.bastion_security_group_config.egress_rules) == 0 ? null : var.bastion_security_group_config.egress_rules, null),
       [
         {
           description = "Allow all outbound traffic"

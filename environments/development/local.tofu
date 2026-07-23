@@ -18,10 +18,10 @@ locals {
     description = "Configuring security groups for EC2 instances."
 
     ingress_rules = coalesce(
-      try(length(var.security_group_config.ingress_rules) == 0 ? null : var.security_group_config.ingress_rules, null),
+      try(length(var.bastion_security_group_config.ingress_rules) == 0 ? null : var.bastion_security_group_config.ingress_rules, null),
       [
         {
-          description = "Allow SSH from My IP"
+          description = "Allow SSH access from administrator IP"
           from_port   = 22
           to_port     = 22
           protocol    = "tcp"
@@ -30,7 +30,7 @@ locals {
       ]
     )
     egress_rules = coalesce(
-      try(length(var.security_group_config.egress_rules) == 0 ? null : var.security_group_config.egress_rules, null),
+      try(length(var.bastion_security_group_config.egress_rules) == 0 ? null : var.bastion_security_group_config.egress_rules, null),
       [
         {
           description = "Allow all outbound traffic"
@@ -51,11 +51,11 @@ locals {
       try(length(var.db_security_group_config.ingress_rules) == 0 ? null : var.db_security_group_config.ingress_rules, null),
       [
         {
-          description = "Allow SSH from My IP"
+          description = "Allow inbound database traffic from the VPC"
           from_port   = var.db_port
           to_port     = var.db_port
           protocol    = "tcp"
-          cidr_blocks = [local.my_public_ip]
+          cidr_blocks = [var.vpc_cidr_block]
         }
       ]
     )

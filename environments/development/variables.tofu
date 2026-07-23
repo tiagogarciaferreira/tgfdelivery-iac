@@ -96,7 +96,7 @@ variable "enabled_eip" {
   default     = true
 }
 
-variable "security_group_config" {
+variable "bastion_security_group_config" {
   description = "Configuration for the security groups."
   type = object({
     name        = string
