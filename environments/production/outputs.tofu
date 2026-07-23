@@ -125,17 +125,17 @@ output "password_secret_arn" {
 
 output "cache_id" {
   description = "ID of the ElastiCache instance."
-  value = module.cache.id
+  value       = module.cache.id
 }
 
 output "cache_arn" {
   description = "ARN of the ElastiCache instance."
-  value = module.cache.arn
+  value       = module.cache.arn
 }
 
 output "cache_engine" {
   description = "Engine of the ElastiCache instance."
-  value = module.cache.engine
+  value       = module.cache.engine
 }
 
 output "cache_security_group_id" {

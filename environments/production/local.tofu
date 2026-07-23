@@ -18,7 +18,7 @@ locals {
     description = "Configuring security groups for EC2 instances."
 
     ingress_rules = try(length(var.bastion_security_group_config.ingress_rules), 0) > 0 ? (
-    var.bastion_security_group_config.ingress_rules) : [
+      var.bastion_security_group_config.ingress_rules) : [
       {
         description = "Allow SSH access from administrator IP"
         from_port   = 22
@@ -28,7 +28,7 @@ locals {
       }
     ]
     egress_rules = try(length(var.bastion_security_group_config.egress_rules), 0) > 0 ? (
-    var.bastion_security_group_config.egress_rules) : [
+      var.bastion_security_group_config.egress_rules) : [
       {
         description = "Allow all outbound traffic"
         from_port   = 0
@@ -44,7 +44,7 @@ locals {
     description = "Configuring security groups for DB instances."
 
     ingress_rules = try(length(var.db_security_group_config.ingress_rules), 0) > 0 ? (
-    var.db_security_group_config.ingress_rules) : [
+      var.db_security_group_config.ingress_rules) : [
       {
         description = "Allow inbound database traffic from the VPC"
         from_port   = var.db_port
@@ -54,7 +54,7 @@ locals {
       }
     ]
     egress_rules = try(length(var.db_security_group_config.egress_rules), 0) > 0 ? (
-    var.db_security_group_config.egress_rules) : [
+      var.db_security_group_config.egress_rules) : [
       {
         description = "Allow all outbound traffic"
         from_port   = 0
@@ -70,7 +70,7 @@ locals {
     description = "Configuring security groups for ElastiCache."
 
     ingress_rules = try(length(var.cache_security_group_config.ingress_rules), 0) > 0 ? (
-    var.cache_security_group_config.ingress_rules) : [
+      var.cache_security_group_config.ingress_rules) : [
       {
         description = "Allow inbound cache traffic from the VPC"
         from_port   = var.cache_port
@@ -80,7 +80,7 @@ locals {
       }
     ]
     egress_rules = try(length(var.cache_security_group_config.egress_rules), 0) > 0 ? (
-    var.cache_security_group_config.egress_rules) : [
+      var.cache_security_group_config.egress_rules) : [
       {
         description = "Allow all outbound traffic"
         from_port   = 0

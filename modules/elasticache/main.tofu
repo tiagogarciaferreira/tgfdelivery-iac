@@ -15,7 +15,6 @@ resource "aws_elasticache_serverless_cache" "main" {
     }
   }
   daily_snapshot_time      = var.daily_snapshot_time
-  kms_key_id               = null #aws_kms_key.test.arn
   major_engine_version     = var.major_engine_version
   snapshot_retention_limit = var.snapshot_retention_limit
   security_group_ids       = [aws_security_group.main.id]
