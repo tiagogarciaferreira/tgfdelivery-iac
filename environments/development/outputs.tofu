@@ -122,3 +122,28 @@ output "password_secret_arn" {
   description = "ARN of the Secrets Manager secret containing the master user password."
   value       = module.database.password_secret_arn
 }
+
+output "cache_id" {
+  description = "ID of the ElastiCache instance."
+  value = module.cache.id
+}
+
+output "cache_arn" {
+  description = "ARN of the ElastiCache instance."
+  value = module.cache.arn
+}
+
+output "cache_engine" {
+  description = "Engine of the ElastiCache instance."
+  value = module.cache.engine
+}
+
+output "cache_security_group_id" {
+  description = "ID of the associated security group."
+  value       = module.cache.id
+}
+
+output "cache_security_group_arn" {
+  description = "ARN of the associated security group."
+  value       = module.cache.arn
+}

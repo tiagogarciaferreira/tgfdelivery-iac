@@ -47,23 +47,23 @@ variable "private_subnets_config" {
       availability_zone = string
     }))
   )
-  default = {
-    "management" = {
+  default = ({
+    management = {
       "private_management_a" = { cidr_block = "172.25.4.0/24", availability_zone = "a" },
       "private_management_b" = { cidr_block = "172.25.5.0/24", availability_zone = "b" },
       "private_management_c" = { cidr_block = "172.25.6.0/24", availability_zone = "c" },
     },
-    "cluster" = {
+    cluster = {
       "private_cluster_a" = { cidr_block = "172.25.7.0/24", availability_zone = "a" },
       "private_cluster_b" = { cidr_block = "172.25.8.0/24", availability_zone = "b" },
       "private_cluster_c" = { cidr_block = "172.25.9.0/24", availability_zone = "c" },
     }
-    "database" = {
+    database = {
       "private_database_a" = { cidr_block = "172.25.10.0/24", availability_zone = "a" },
       "private_database_b" = { cidr_block = "172.25.11.0/24", availability_zone = "b" },
       "private_database_c" = { cidr_block = "172.25.12.0/24", availability_zone = "c" },
     }
-  }
+  })
 }
 
 variable "nat_gw_availability_mode" {
@@ -82,12 +82,6 @@ variable "key_pair_name" {
   description = "The name of the key pair to use for the EC2 instances."
   type        = string
   default     = "tgfdelivery-key"
-}
-
-variable "ami_id" {
-  description = "The AMI ID for the EC2 instances."
-  type        = string
-  default     = "ami-0b6d9d3d33ba97d99"
 }
 
 variable "enabled_eip" {
@@ -234,4 +228,82 @@ variable "maintenance_window" {
   description = "Weekly time window during which system maintenance can occur (e.g., sun:04:30-sun:05:30)."
   type        = string
   default     = "Sat:03:00-Sat:07:00"
+}
+
+variable "cache_engine" {
+  description = "The cache engine to use (e.g., redis, memcached, valkey)."
+  type        = string
+  default     = "valkey"
+}
+
+variable "cache_port" {
+  description = "The port number on which the cache accepts connections (e.g., 6379 for Redis, 11211 for Memcached)."
+  type        = number
+  default     = 6379
+}
+
+variable "cache_major_engine_version" {
+  description = "The major version of the cache engine (e.g., 7.1)."
+  type        = string
+  default     = "9"
+}
+
+variable "cache_daily_snapshot_time" {
+  description = "The daily time range in UTC for snapshots (e.g., 03:00-04:00)."
+  type        = string
+  default     = "05:00"
+}
+
+variable "cache_snapshot_retention_limit" {
+  description = "Number of days to retain automatic snapshots."
+  type        = number
+  default     = 1
+}
+
+variable "cache_security_group_config" {
+  description = "Configuration for the security groups."
+  type = object({
+    name        = string
+    description = string
+    ingress_rules = list(object({
+      description = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    }))
+    egress_rules = list(object({
+      description = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    }))
+  })
+}
+
+variable "cache_data_storage" {
+  description = "Minimum and maximum data storage limits for the serverless cache."
+  type = object({
+    maximum = number
+    minimum = number
+    unit    = string
+  })
+  default = ({
+    maximum = 10
+    minimum = 1
+    unit    = "GB"
+  })
+}
+
+variable "cache_ecpu_per_second" {
+  description = "Minimum and maximum ElastiCache Processing Units (ECPU) per second for scaling."
+  type = object({
+    maximum = number
+    minimum = number
+  })
+  default = ({
+    maximum = 5000
+    minimum = 1000
+  })
 }
