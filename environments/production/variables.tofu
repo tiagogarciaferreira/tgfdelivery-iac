@@ -42,13 +42,13 @@ variable "public_subnets_config" {
       availability_zone = string
     }))
   )
-  default = {
-    public = tomap({
+  default = ({
+    public = {
       "public_a" = { cidr_block = "172.26.1.0/24", availability_zone = "a" },
       "public_b" = { cidr_block = "172.26.2.0/24", availability_zone = "b" },
       "public_c" = { cidr_block = "172.26.3.0/24", availability_zone = "c" },
-    })
-  }
+    }
+  })
 }
 
 variable "private_subnets_config" {
@@ -59,23 +59,23 @@ variable "private_subnets_config" {
       availability_zone = string
     }))
   )
-  default = {
-    management = tomap({
+  default = ({
+    management = {
       "private_management_a" = { cidr_block = "172.26.4.0/24", availability_zone = "a" },
       "private_management_b" = { cidr_block = "172.26.5.0/24", availability_zone = "b" },
       "private_management_c" = { cidr_block = "172.26.6.0/24", availability_zone = "c" },
-    }),
-    cluster = tomap({
+    },
+    cluster = {
       "private_cluster_a" = { cidr_block = "172.26.7.0/24", availability_zone = "a" },
       "private_cluster_b" = { cidr_block = "172.26.8.0/24", availability_zone = "b" },
       "private_cluster_c" = { cidr_block = "172.26.9.0/24", availability_zone = "c" },
-    }),
-    database = tomap({
+    },
+    database = {
       "private_database_a" = { cidr_block = "172.26.10.0/24", availability_zone = "a" },
       "private_database_b" = { cidr_block = "172.26.11.0/24", availability_zone = "b" },
       "private_database_c" = { cidr_block = "172.26.12.0/24", availability_zone = "c" },
-    })
-  }
+    }
+  })
 }
 
 variable "nat_gw_availability_mode" {
