@@ -217,3 +217,21 @@ variable "db_apply_immediately" {
   type        = bool
   default     = false
 }
+
+variable "backup_window" {
+  description = "Daily time window during which automated backups are created (e.g., 03:00-04:00)."
+  type        = string
+  default     = "08:00-09:00"
+}
+
+variable "backup_retention_period" {
+  description = "Number of days to retain automated backups."
+  type        = number
+  default     = 7
+}
+
+variable "maintenance_window" {
+  description = "Weekly time window during which system maintenance can occur (e.g., sun:04:30-sun:05:30)."
+  type        = string
+  default     = "Sat:03:00-Sat:07:00"
+}

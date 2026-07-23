@@ -106,3 +106,18 @@ variable "apply_immediately" {
   description = "Apply database modifications immediately instead of waiting for the next maintenance window."
   type        = bool
 }
+
+variable "backup_window" {
+  description = "Daily time window during which automated backups are created (e.g., 03:00-04:00)."
+  type        = string
+}
+
+variable "backup_retention_period" {
+  description = "Number of days to retain automated backups."
+  type        = number
+}
+
+variable "maintenance_window" {
+  description = "Weekly time window during which system maintenance can occur (e.g., sun:04:30-sun:05:30)."
+  type        = string
+}

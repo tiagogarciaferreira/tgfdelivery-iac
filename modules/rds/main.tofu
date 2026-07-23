@@ -41,6 +41,9 @@ resource "aws_db_instance" "main" {
   multi_az                    = false
   vpc_security_group_ids      = [aws_security_group.main.id]
   apply_immediately           = var.apply_immediately
+  backup_window               = var.backup_window
+  backup_retention_period     = var.backup_retention_period
+  maintenance_window          = var.maintenance_window
 
   tags = merge(var.common_tags, {
     Name = "${var.context_name}-${var.environment}-db"

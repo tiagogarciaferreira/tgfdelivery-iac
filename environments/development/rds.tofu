@@ -19,4 +19,7 @@ module "database" {
   security_group_config   = local.db_security_group_config
   skip_final_snapshot     = var.db_skip_final_snapshot
   apply_immediately       = var.db_apply_immediately
+  backup_window           = var.backup_window
+  backup_retention_period = var.backup_retention_period
+  maintenance_window      = var.maintenance_window
 }
