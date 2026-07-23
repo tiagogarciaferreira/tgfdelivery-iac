@@ -9,7 +9,7 @@ variable "context_name" {
 }
 
 variable "environment" {
-  description = "The environment for the S3 bucket (e.g., development, homologation, production)."
+  description = "The environment to deploy resources. (e.g., development, homologation, production)."
   type        = string
 }
 
