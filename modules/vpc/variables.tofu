@@ -3,6 +3,11 @@ variable "aws_region" {
   type        = string
 }
 
+variable "common_tags" {
+  description = "A map of common tags to apply to all resources."
+  type        = map(string)
+}
+
 variable "context_name" {
   description = "The context name for the resources."
   type        = string
@@ -43,7 +48,12 @@ variable "nat_gateway_availability_mode" {
   type        = string
 }
 
-variable "common_tags" {
-  description = "A map of common tags to apply to all resources."
-  type        = map(string)
+variable "enable_dns_hostnames" {
+  description = "Enable DNS hostnames for resources within the VPC."
+  type        = bool
+}
+
+variable "enable_dns_support" {
+  description = "Enable DNS resolution support in the VPC."
+  type        = bool
 }

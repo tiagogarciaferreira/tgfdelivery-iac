@@ -9,4 +9,6 @@ module "vpc" {
   private_subnets_config        = var.private_subnets_config
   nat_gateway_availability_mode = local.nat_gateway_availability_mode
   common_tags                   = local.common_tags
+  enable_dns_hostnames          = var.enable_dns_hostnames
+  enable_dns_support            = var.enable_dns_support
 }

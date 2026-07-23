@@ -22,6 +22,18 @@ variable "vpc_cidr_block" {
   default     = "172.26.0.0/16"
 }
 
+variable "enable_dns_hostnames" {
+  description = "Enable DNS hostnames for resources within the VPC."
+  type        = bool
+  default     = true
+}
+
+variable "enable_dns_support" {
+  description = "Enable DNS resolution support in the VPC."
+  type        = bool
+  default     = true
+}
+
 variable "public_subnets_config" {
   description = "Configuration for the public subnets."
   type = map(
@@ -31,11 +43,11 @@ variable "public_subnets_config" {
     }))
   )
   default = {
-    "public" = {
+    public = tomap({
       "public_a" = { cidr_block = "172.26.1.0/24", availability_zone = "a" },
       "public_b" = { cidr_block = "172.26.2.0/24", availability_zone = "b" },
       "public_c" = { cidr_block = "172.26.3.0/24", availability_zone = "c" },
-    }
+    })
   }
 }
 
@@ -47,23 +59,23 @@ variable "private_subnets_config" {
       availability_zone = string
     }))
   )
-  default = ({
-    management = {
+  default = {
+    management = tomap({
       "private_management_a" = { cidr_block = "172.26.4.0/24", availability_zone = "a" },
       "private_management_b" = { cidr_block = "172.26.5.0/24", availability_zone = "b" },
       "private_management_c" = { cidr_block = "172.26.6.0/24", availability_zone = "c" },
-    },
-    cluster = {
+    }),
+    cluster = tomap({
       "private_cluster_a" = { cidr_block = "172.26.7.0/24", availability_zone = "a" },
       "private_cluster_b" = { cidr_block = "172.26.8.0/24", availability_zone = "b" },
       "private_cluster_c" = { cidr_block = "172.26.9.0/24", availability_zone = "c" },
-    }
-    database = {
+    }),
+    database = tomap({
       "private_database_a" = { cidr_block = "172.26.10.0/24", availability_zone = "a" },
       "private_database_b" = { cidr_block = "172.26.11.0/24", availability_zone = "b" },
       "private_database_c" = { cidr_block = "172.26.12.0/24", availability_zone = "c" },
-    }
-  })
+    })
+  }
 }
 
 variable "nat_gw_availability_mode" {
@@ -312,4 +324,33 @@ variable "cache_ecpu_per_second" {
     maximum = 5000
     minimum = 1000
   })
+}
+
+variable "msk_port" {
+  description = "The port number on which the msk accepts connections (e.g., 9098)."
+  type        = number
+  default     = 9098
+}
+
+variable "msk_security_group_config" {
+  description = "Configuration for the security groups."
+  type = object({
+    name        = string
+    description = string
+    ingress_rules = list(object({
+      description = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    }))
+    egress_rules = list(object({
+      description = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    }))
+  })
+  default = null
 }

@@ -90,4 +90,30 @@ locals {
       }
     ]
   }
+
+  msk_security_group_config = {
+    name        = "${local.context_name}-${var.environment}-msk-sg"
+    description = "Configuring security groups for MSK."
+
+    ingress_rules = try(length(var.msk_security_group_config.ingress_rules), 0) > 0 ? (
+      var.msk_security_group_config.ingress_rules) : [
+      {
+        description = "Allow inbound msk traffic from the VPC"
+        from_port   = var.msk_port
+        to_port     = var.msk_port
+        protocol    = "tcp"
+        cidr_blocks = [var.vpc_cidr_block]
+      }
+    ]
+    egress_rules = try(length(var.msk_security_group_config.egress_rules), 0) > 0 ? (
+      var.msk_security_group_config.egress_rules) : [
+      {
+        description = "Allow all outbound traffic"
+        from_port   = 0
+        to_port     = 0
+        protocol    = "-1"
+        cidr_blocks = [local.internet_cidr_block]
+      }
+    ]
+  }
 }

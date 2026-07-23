@@ -152,3 +152,33 @@ output "cache_endpoint" {
   description = "Endpoint of the ElastiCache Serverless cache."
   value       = module.cache.endpoint
 }
+
+output "msk_id" {
+  description = "ID of the MSK instance."
+  value       = module.msk.id
+}
+
+output "msk_arn" {
+  description = "ARN of the MSK instance."
+  value       = module.msk.arn
+}
+
+output "msk_custer_name" {
+  description = "Name of the MSK cluster."
+  value       = module.msk.cluster_name
+}
+
+output "msk_endpoint" {
+  description = "Endpoint of the MSK Serverless."
+  value       = module.msk.endpoint
+}
+
+output "msk_security_group_id" {
+  description = "ID of the associated security group."
+  value       = module.msk.security_group_id
+}
+
+output "msk_security_group_arn" {
+  description = "ARN of the associated security group."
+  value       = module.msk.security_group_arn
+}
