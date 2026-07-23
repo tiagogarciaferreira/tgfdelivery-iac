@@ -22,3 +22,8 @@ output "security_group_arn" {
   description = "ARN of the associated security group."
   value       = aws_security_group.main.arn
 }
+
+output "endpoint" {
+  description = "Endpoint of the ElastiCache Serverless cache."
+  value       = aws_elasticache_serverless_cache.main.endpoint
+}

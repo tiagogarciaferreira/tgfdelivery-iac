@@ -147,3 +147,8 @@ output "cache_security_group_arn" {
   description = "ARN of the associated security group."
   value       = module.cache.arn
 }
+
+output "cache_endpoint" {
+  description = "Endpoint of the ElastiCache Serverless cache."
+  value       = module.cache.endpoint
+}
