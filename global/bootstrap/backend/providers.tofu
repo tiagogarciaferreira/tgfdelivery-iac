@@ -8,7 +8,6 @@ terraform {
     }
   }
 
-  # Validara a criptografia do arquivo state
   backend "s3" {
     bucket       = var.bucket_name
     key          = "${local.context_name}/${local.environment}/remote.tfstate"

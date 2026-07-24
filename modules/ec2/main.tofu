@@ -38,7 +38,7 @@ resource "aws_instance" "main" {
   associate_public_ip_address = true
 
   tags = merge(var.common_tags, {
-    Name = "${var.instance_name}"
+    Name = var.instance_name
   })
 
   lifecycle {

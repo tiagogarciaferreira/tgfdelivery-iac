@@ -57,7 +57,7 @@ variable "private_subnets_config" {
     map(object({
       cidr_block        = string
       availability_zone = string
-    })))
+  })))
   default = ({
     management = {
       "private_management_a" = { cidr_block = "172.25.4.0/24", availability_zone = "a" }

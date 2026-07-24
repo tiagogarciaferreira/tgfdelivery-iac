@@ -96,12 +96,6 @@ variable "key_pair_name" {
   default     = "tgfdelivery-key"
 }
 
-variable "ami_id" {
-  description = "The AMI ID for the EC2 instances."
-  type        = string
-  default     = "ami-0b6d9d3d33ba97d99"
-}
-
 variable "enabled_eip" {
   description = "Whether to enable an Elastic IP for the EC2 instance."
   type        = bool

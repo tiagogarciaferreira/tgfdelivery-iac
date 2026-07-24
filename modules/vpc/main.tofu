@@ -1,7 +1,7 @@
 resource "aws_vpc" "main" {
-  cidr_block = var.vpc_cidr_block
+  cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = var.enable_dns_hostnames
-  enable_dns_support = var.enable_dns_support
+  enable_dns_support   = var.enable_dns_support
 
   tags = merge(var.common_tags, {
     Name = var.vpc_name
@@ -84,15 +84,3 @@ resource "aws_route_table_association" "private" {
   subnet_id      = each.value.id
   route_table_id = aws_route_table.private.id
 }
-
-# resource "aws_route_table_association" "private_management_association" {
-#   for_each       = aws_subnet.private_management
-#   subnet_id      = each.value.id
-#   route_table_id = aws_route_table.private.id
-# }
-
-# resource "aws_route_table_association" "private_cluster_association" {
-#   for_each       = aws_subnet.private_cluster
-#   subnet_id      = each.value.id
-#   route_table_id = aws_route_table.private.id
-# }
